@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Escape Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="distortion-pulse">
+    <div id="countdownTimer">90</div>
+
+    <div id="backgroundContainer" aria-hidden="true"></div>
+
+    <div id="preloader">
+      <div id="loaderSpinner"></div>
+      <p id="loaderText">Loading...</p>
+    </div>
+
+    <div class="col">
+      <div class="box"></div>
+      <div class="box2">
+        <img
+          onclick="lookLeft()"
+          class="arrowImg"
+          src="images/leftarrow.png"
+          alt="Look left"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+      <div class="box"></div>
+    </div>
+
+    <div class="col2">
+      <div class="box2" role="button" tabindex="0" aria-label="Open TV">
+        <img onclick="tvModal()" id="tvTv" class="tvImg" src="images/tv.png" />
+      </div>
+      <div class="box2">
+        <img
+          onclick="lockModal()"
+          class="lockbox"
+          src="images/lockBox.png"
+          alt="Lock box"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="box"></div>
+      <div class="box2">
+        <div class="col">
+          <img
+            onclick="lookRightDoor()"
+            class="RarrowImg"
+            src="images/leftarrow.png"
+            alt="Look right to door"
+            role="button"
+            tabindex="0"
+          />
+        </div>
+      </div>
+      <div class="box"></div>
+    </div>
+
+    <div class="doorModal modal" id="doorModal" aria-hidden="true">
+      <div class="col">
+        <img
+          onclick="lookLeftDoor()"
+          class="arrowImg"
+          src="images/leftarrow.png"
+          alt="Back to room"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+      <div
+        class="col2 clickable"
+        onclick="openKeypadModal()"
+        role="button"
+        tabindex="0"
+        aria-label="Open door keypad"
+      ></div>
+      <div class="col"></div>
+    </div>
+
+    <div class="leftModal modal" id="leftModal" aria-hidden="true">
+      <div class="col2 bottom">
+        <img
+          class="hintImg"
+          onclick="showDialogue()"
+          src="images/HintGuy.png"
+          alt="Hint character"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+
+      <div class="col2">
+        <img
+          onclick="bookModal()"
+          class="bookImg"
+          src="images/book.png"
+          alt="Book"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+
+      <div class="col">
+        <img
+          onclick="lookRight()"
+          class="RarrowImg"
+          src="images/leftarrow.png"
+          alt="Back right"
+          role="button"
+          tabindex="0"
+        />
+      </div>
+    </div>
+
+    <div class="bookModal modal" id="bookModal" aria-hidden="true">
+      <span
+        class="close"
+        onclick="closeModal('bookModal')"
+        role="button"
+        tabindex="0"
+        aria-label="Close"
+        >&times;</span
+      >
+      <div class="col4"></div>
+      <div class="col2"></div>
+      <div class="col4"></div>
+    </div>
+
+    <div class="keypadModal modal" id="keypadModal" aria-hidden="true">
+      <span
+        class="close"
+        onclick="closeModal('keypadModal')"
+        role="button"
+        tabindex="0"
+        aria-label="Close keypad"
+        >&times;</span
+      >
+
+      <div class="keypadContent">
+        <div class="keypadDisplay" id="keypadDisplay">------</div>
+
+        <div class="keypadButtons">
+          <button class="keyBtn" id="btn1">1</button>
+          <button class="keyBtn" id="btn2">2</button>
+          <button class="keyBtn" id="btn3">3</button>
+          <button class="keyBtn" id="btn4">4</button>
+          <button class="keyBtn" id="btn5">5</button>
+          <button class="keyBtn" id="btn6">6</button>
+          <button class="keyBtn" id="btn7">7</button>
+          <button class="keyBtn" id="btn8">8</button>
+          <button class="keyBtn" id="btn9">9</button>
+          <button class="keyBtn clear" id="btnClear">C</button>
+          <button class="keyBtn" id="btn0">0</button>
+          <button class="keyBtn enter" id="btnEnter">E</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lockModal modal" id="lockModal" aria-hidden="true">
+      <span
+        class="close"
+        onclick="closeModal('lockModal')"
+        role="button"
+        tabindex="0"
+        aria-label="Close lockbox"
+        >&times;</span
+      >
+      <div class="col4" onclick="cycleDigit(0)">
+        <img id="numImg1" class="digitImg" alt="digit 1" />
+      </div>
+      <div class="col4" onclick="cycleDigit(1)">
+        <img id="numImg2" class="digitImg" alt="digit 2" />
+      </div>
+      <div class="col4" onclick="cycleDigit(2)">
+        <img id="numImg3" class="digitImg" alt="digit 3" />
+      </div>
+      <div class="col4" onclick="cycleDigit(3)">
+        <img id="numImg4" class="digitImg" alt="digit 4" />
+      </div>
+    </div>
+
+    <div class="tvModal modal red" id="tvModal" aria-hidden="true">
+      <span
+        class="closeInteresting"
+        onclick="closeModal('tvModal')"
+        role="button"
+        tabindex="0"
+        aria-label="Close TV"
+        >&times;</span
+      >
+    </div>
+
+    <div
+      class="dialogue"
+      id="dialogueModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="dialogueFace">
+        <img
+          id="dialogueImg"
+          src="images/HintFace.png"
+          class="dialogueImg"
+          alt="Hint face"
+        />
+      </div>
+      <div class="dialogueText">
+        <img src="images/DialogueBox.png" class="dialogueImg" alt="" />
+        <h3 id="dialogueText" aria-live="polite"></h3>
+      </div>
+    </div>
+    <div id="dialogueBlocker" style="display: none"></div>
+
+    <div id="jumpscareScreen" aria-hidden="true">
+      <img
+        id="jumpscareImage"
+        src="images/jumpscareImageHOORAY.jpg"
+        alt="Game Over Monster"
+      />
+    </div>
+
+    <div class="overlay" aria-hidden="true"></div>
+
+    <audio
+      id="ambianceAudio"
+      src="sounds/wind_elevated_area.wav"
+      muted
+      loop
+    ></audio>
+    <audio id="clickAudio" src="sounds/metalthing.wav"></audio>
+    <audio id="tensionAudio" src="sounds/heartbeat.wav" muted></audio>
+    <audio id="tvStatic" src="sounds\televison-static.mp3" muted></audio>
+    <audio id="openBookAudio" src="sounds/bookOpen.wav"></audio>
+    <audio id="closeBookAudio" src="sounds/bookClose.wav"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
