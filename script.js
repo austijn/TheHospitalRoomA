@@ -37,6 +37,7 @@ let closeTimeout = null;
 let currentIndex = 0;
 
 let playerTimer = null;
+let gameStarted = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   refreshAllLockImages();
@@ -132,6 +133,12 @@ function playQuickStep() {
 /** Starts ambiance and the heartbeat loop. */
 function startAmbianceOnce() {
   // Ambiance setup
+
+  if (gameStarted) {
+        return; 
+    }
+
+  gameStarted = true
   ambianceAudio.muted = false;
   ambianceAudio
     .play()
@@ -590,4 +597,5 @@ const assetsToPreload = [
 document.addEventListener("DOMContentLoaded", () => {
   preloadAssets(assetsToPreload, hidePreloader);
 });
+
 
