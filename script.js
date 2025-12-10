@@ -150,8 +150,6 @@ function startAmbianceOnce() {
   // Start the heartbeat sound via the seamless loop
   tensionAudio.muted = false;
   seamlessLoop();
-  startCountdown(); // visible countdown in top-right
-
   // Start the hidden, time-based degradation
   startEnvironmentalTimer();
 
@@ -556,6 +554,7 @@ const assetsToPreload = [
 document.addEventListener("DOMContentLoaded", () => {
   preloadAssets(assetsToPreload, hidePreloader);
 });
+
 
 
 
